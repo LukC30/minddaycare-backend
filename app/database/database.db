@@ -1,0 +1,21 @@
+CREATE DATABASE DB_MINDDAYCARE;
+USE DB_MINDDAYCARE;
+
+CREATE TABLE IF NOT EXISTS tbl_users(
+    id Integer auto_increment PRIMARY KEY,
+    nome text(200),
+    email text(200) UNIQUE,
+    senha text(200),
+    telefone char(11) UNIQUE,
+    created_at text default datetime('now') 
+);
+
+CREATE TABLE IF NOT EXISTS tbl_desabafo(
+    id Integer auto_increment PRIMARY KEY,
+    id_user Integer,
+    humor text varchar(30),
+    descricao text,
+    created_at text default datetime('now'),
+
+    foreign key (id_user) references TBL_USERS(id)
+);
