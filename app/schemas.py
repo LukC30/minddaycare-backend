@@ -2,7 +2,7 @@ from pydantic import BaseModel
 from typing import Literal, Optional
 
 class UserDTO(BaseModel):
-    name: str
+    nome: str
     email: str
     senha: Optional[str]
     telefone: Optional[str]

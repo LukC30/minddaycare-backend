@@ -1,0 +1,26 @@
+CREATE DATABASE IF NOT EXISTS DB_MINDDAYCARE;
+USE DB_MINDDAYCARE;
+
+CREATE TABLE IF NOT EXISTS tbl_users(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(200) NOT NULL,
+    email VARCHAR(200) UNIQUE NOT NULL,
+    senha VARCHAR(255) NOT NULL,
+    telefone CHAR(11) UNIQUE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Tabela de Desabafos
+CREATE TABLE IF NOT EXISTS tbl_desabafo(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_user INT NOT NULL,
+    humor VARCHAR(30),
+    descricao TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_usuario_desabafo 
+        FOREIGN KEY (id_user) REFERENCES tbl_users(id) 
+        ON DELETE CASCADE
+);
+
+SELECT * FROM tbl_users;

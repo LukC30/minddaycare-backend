@@ -1,15 +1,21 @@
 from sqlite3 import DatabaseError
 from contextlib import contextmanager
-from typing import TypeVar
 import logging
-import sqlite3
+import mysql.connector
 
 logger = logging.getLogger("[DATABASE]")
 
 class Database():
     def __init__(self):
         try:
-            self.db = sqlite3.connect('database.db')
+            self.db = mysql.connector.connect(
+                user="root",
+                password="",
+                port=3306,
+                host="localhost",
+                database="DB_MINDDAYCARE"
+            )
+            
             logger.info("Database is initialized")
         except DatabaseError as e:
             logger.error(f"Connection error {e}")

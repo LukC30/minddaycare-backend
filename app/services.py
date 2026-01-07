@@ -9,9 +9,9 @@ class UserService():
     def __init__(self, user_repo: UserRepository):
         self.user_repo = user_repo
     
-    async def create_user(self, user: UserDTO):
+    def create_user(self, user: UserDTO):
         try:
-            await self.user_repo.create_user(user)
+            self.user_repo.create_user(user)
         except Exception as e:
             logger.error("Error: %s", str(e))
         return
