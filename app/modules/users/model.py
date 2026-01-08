@@ -13,14 +13,3 @@ class UserModel(BaseModel):
     def to_insert(self):
         insert_data = (self.nome, self.email, self.senha, self.telefone)
         return insert_data
-
-class ConfessionModel(BaseModel):
-    id: int
-    id_user: int
-    humor: str
-    descricao: str
-    created_at: str
-
-    def to_insert(self):
-        insert_data = self.model_dump().values()
-        return insert_data

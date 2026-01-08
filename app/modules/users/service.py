@@ -1,6 +1,6 @@
-from app.database.db import Database
-from app.repository import UserRepository
-from app.schemas import UserDTO
+from app.core.database.db import Database
+from .repository import UserRepository
+from .schema import UserRequestDTO
 import logging 
 
 logger = logging.getLogger(__name__)
@@ -9,7 +9,7 @@ class UserService():
     def __init__(self, user_repo: UserRepository):
         self.user_repo = user_repo
     
-    def create_user(self, user: UserDTO):
+    def create_user(self, user: UserRequestDTO):
         try:
             self.user_repo.create_user(user)
         except Exception as e:
