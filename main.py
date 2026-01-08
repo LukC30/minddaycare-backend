@@ -1,28 +1,27 @@
+#internal imports
+from app.core.lifespan import lifespan
+from app.core.config import setup_logging
+from app.modules.users.routes import user_router
+
+#external imports
 from fastapi import FastAPI
-from app.database.db import Database
-from app.repository import UserRepository
-from app.routes import router
 import logging
 import uvicorn
-
-from app.services import UserService
 
 logging.basicConfig(format= '[%(asctime)s] {%(pathname)s:%(lineno)d} %(levelname)s - %(message)s',)
 logger = logging.getLogger(__name__)
 app = FastAPI(
     title="MindDayCare",
     description="Para cuidar da cabecinha hehehe",
+    lifespan=lifespan
 )
-db = Database()
-user_repo = UserRepository(db)
-user_service = UserService(user_repo)
 
-app.include_router(router)
-app.state.service = user_service
+app.include_router(user_router)
 
 @app.get('/')
 def test_route():
     return {"message" : "rodando vrumvrum"}
 
 if __name__ == "__main__":
-    uvicorn.run(app=app, log_level="debug")
+    setup_logging()
+    uvicorn.run(app="main:app", reload=True)

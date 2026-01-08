@@ -7,8 +7,11 @@ logger = logging.getLogger("[DATABASE]")
 
 class Database():
     def __init__(self):
+        self.db = self.connection()
+    
+    def connection(self):
         try:
-            self.db = mysql.connector.connect(
+            db = mysql.connector.connect(
                 user="root",
                 password="",
                 port=3306,
@@ -17,9 +20,10 @@ class Database():
             )
             
             logger.info("Database is initialized")
+            return db
         except DatabaseError as e:
             logger.error(f"Connection error {e}")
-    
+
     @contextmanager
     def alter_cursor(self):
         c = self.db.cursor()

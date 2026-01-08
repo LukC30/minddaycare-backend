@@ -10,6 +10,3 @@ class UserModel(BaseModel):
     telefone: str
     created_at: Optional[str] = Field("")
 
-    def to_insert(self):
-        insert_data = (self.nome, self.email, self.senha, self.telefone)
-        return insert_data
