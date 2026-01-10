@@ -4,9 +4,9 @@ import datetime
 
 class UserModel(BaseModel):
     id: Optional[int] = Field(0)
-    nome: str
-    email: str
-    senha: str
-    telefone: str
+    nome: str = Field("")
+    email: str = Field("")
+    senha: str = Field("")
+    telefone: str = Field("")
     created_at: Optional[str] = Field("")
 

@@ -23,14 +23,26 @@ class UserService():
         users_dict = []
         try:
             users_model = self.user_repo.get_all()
+            print(users_model)
             users_dict = UserMapper.to_user_response_schema_list(users_model)
         
         except Exception as e:
             logger.error("Error: %s", str(e))
-            raise 
+            raise
+             
         return users_dict
+    
+    def get_user(self, id):
+        user_dict = {}
+        try:
+            user_model = self.user_repo.get_by_id(id)
+            print(user_model)
+            user_dict = UserMapper.to_user_response_schema(user_model)
+        
+        except Exception as e:
+            logger.error("Error: %s", str(e))
+            
 
-
-
+        return user_dict
             
         

@@ -23,7 +23,6 @@ class BaseUserRepository(ABC):
     async def get_all(self):
         pass
 
-
     @abstractmethod
     async def update(self, user_request: UserRequestDTO):
         pass

@@ -23,7 +23,8 @@ class UserMapper():
     @override
     @staticmethod
     def to_user_model(user_data: Tuple) -> UserModel:
-        pass
+        user_model = UserModel(id=user_data[0], nome=user_data[1], email=user_data[2],senha=user_data[3],created_at=user_data[4])
+        return user_model
 
     @staticmethod
     def to_insert(user_model: UserModel):

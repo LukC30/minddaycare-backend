@@ -20,14 +20,20 @@ class UserRepository(BaseUserRepository):
         with self.db.read_cursor() as c:
             sql = "SELECT * FROM tbl_users"
             c.execute(sql)
-            users_data = c.fetchall()
-            print(users_data)
-
+            users_data:list[tuple] = c.fetchall()
+        
         users = UserMapper.to_user_model_list(users_data)
+        print(users)
         return users
     
     def get_by_id(self, id):
-        return 
+        with self.db.read_cursor() as c:
+            sql = "SELECT * FROM tbl_users WHERE id = "+ str(id)
+            c.execute(sql)
+            user = c.fetchone()
+
+        user_model = UserMapper.to_user_model(user)
+        return user_model
     
     def update(self, user_request):
         return 

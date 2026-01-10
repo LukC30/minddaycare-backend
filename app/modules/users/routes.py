@@ -2,7 +2,7 @@ from fastapi import APIRouter, Request
 from .schema import UserRequestDTO
 from .service import UserService
 user_router = APIRouter(
-    prefix='/v1',
+    prefix='/v1/user',
     tags=['Main data']
 )
 
@@ -29,5 +29,16 @@ async def get_users(request: Request):
 
     try:
         return {"users": user_service.get_all_users()}
+    except Exception as e:
+        return {"Error":f"{e}"}
+    
+@user_router.get('/{id}')
+def get_user(id: int, request: Request):
+    user_service: UserService = request.app.state.user_service
+
+    try:
+        user = user_service.get_user(id)
+        return {'user' : user}
+    
     except Exception as e:
         return {"Error":f"{e}"}
