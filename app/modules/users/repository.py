@@ -35,8 +35,14 @@ class UserRepository(BaseUserRepository):
         user_model = UserMapper.to_user_model(user)
         return user_model
     
-    def update(self, user_request):
-        return 
+    def update(self, user_request: UserRequestDTO):
+        with self.db.read_cursor() as c:
+            sql = "UPDATE FROM tbl_users set(name, email, senha, telefone, created_at) WHERE email = '%s'", user_request.email
+            to_insert = UserMapper.to_insert(user_request)
+            c.execute(sql, to_insert)
+        
+        user_response = UserMapper.to_user_response_schema(user_request)
+        return user_response
     
     def delete(self, id):
         return 

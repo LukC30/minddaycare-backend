@@ -41,8 +41,14 @@ class UserService():
         
         except Exception as e:
             logger.error("Error: %s", str(e))
-            
-
         return user_dict
-            
+    
+    def update_user(self, user_updated: UserRequestDTO):
+        try:
+            user_updated = self.user_repo.update(user_updated)
+            print(user_updated)
+
+        except Exception as e:
+            logger.error("Error: %s", str(e))
         
+        return user_updated
