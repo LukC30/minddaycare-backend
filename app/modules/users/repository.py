@@ -35,9 +35,19 @@ class UserRepository(BaseUserRepository):
         user_model = UserMapper.to_user_model(user)
         return user_model
     
+    def get_by_email(self, user_request: UserRequestDTO):
+        sql = "SELECT * FROM tbl_users WHERE email = "+ user_request.email
+        with self.db.read_cursor() as c:
+            sql = "SELECT * FROM tbl_users WHERE email = "+ user_request.email
+            c.execute(sql)
+            user = c.fetchone()
+
+        user_model = UserMapper.to_user_model(user)
+        return
+    
     def update(self, user_request: UserRequestDTO):
         with self.db.read_cursor() as c:
-            sql = "UPDATE FROM tbl_users set(name, email, senha, telefone, created_at) WHERE email = '%s'", user_request.email
+            sql = "UPDATE FROM tbl_users set(name, email, senha, telefone) WHERE email = '%s'", user_request.email
             to_insert = UserMapper.to_insert(user_request)
             c.execute(sql, to_insert)
         

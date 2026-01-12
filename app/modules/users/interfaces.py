@@ -8,23 +8,27 @@ class BaseUserRepository(ABC):
         self.db = db
 
     @abstractmethod
-    async def create(self, user_request: UserRequestDTO):
+    def create(self, user_request: UserRequestDTO):
         pass
     
     @abstractmethod
-    async def delete(self, id):
+    def delete(self, id):
         pass
 
     @abstractmethod
-    async def get_by_id(self, id):
+    def get_by_id(self, id):
         pass
 
     @abstractmethod
-    async def get_all(self):
+    def get_all(self):
         pass
 
     @abstractmethod
-    async def update(self, user_request: UserRequestDTO):
+    def get_by_email(self):
+        pass
+
+    @abstractmethod
+    def update(self, user_request: UserRequestDTO):
         pass
 
 
