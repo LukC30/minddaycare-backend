@@ -43,7 +43,7 @@ class UserRepository(BaseUserRepository):
             user = c.fetchone()
 
         user_model = UserMapper.to_user_model(user)
-        return
+        return user_model
     
     def update(self, user_request: UserRequestDTO):
         with self.db.read_cursor() as c:
@@ -54,6 +54,6 @@ class UserRepository(BaseUserRepository):
         user_response = UserMapper.to_user_response_schema(user_request)
         return user_response
     
-    def delete(self, id):
+    def delete(self, user_request: UserRequestDTO):
         return 
 

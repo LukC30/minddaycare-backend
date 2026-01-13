@@ -55,3 +55,4 @@ def update_user(user_request: UserRequestDTO, request: Request):
         return {"message":"success", "user" : {user_service}}
     except Exception as e:
         return {"error":f"{e}"}
+
