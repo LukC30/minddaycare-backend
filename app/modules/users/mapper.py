@@ -12,13 +12,13 @@ class UserMapper():
 
     @to_user_model_list.register   
     @staticmethod
-    def _(user_request_list: List[UserRequestDTO]):
+    def _(user_request_list: list):
         user_model_list = [UserMapper.to_model(user_request) for user_request in user_request_list]
         return user_model_list
     
     @to_user_model_list.register
     @staticmethod
-    def _(user_data: List[tuple]):
+    def _(user_data: list):
         user_model_list = [UserMapper.to_model(user) for user in user_data]
         return user_model_list
     
@@ -35,7 +35,7 @@ class UserMapper():
     
     @to_model.register
     @staticmethod
-    def _(user_data: Tuple) -> UserModel:
+    def _(user_data: tuple) -> UserModel:
         user_model = UserModel(id=user_data[0], nome=user_data[1], email=user_data[2],senha=user_data[3],created_at=user_data[4])
         return user_model
     

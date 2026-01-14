@@ -1,4 +1,5 @@
-from fastapi import APIRouter, Request
+from fastapi import APIRouter, Request, Depends
+from app.core.dependencies import get_user_service
 from .schema import UserRequestDTO
 from .service import UserService
 
@@ -7,19 +8,14 @@ user_router = APIRouter(
     tags=['Main data']
 )
 
-def _get_service(request: Request):
-    user_service: UserService = request.app.state.user_service
-    return user_service
-
 @user_router.get('/test', status_code=200)
 def test_route():
     return {"Message":"Success"}
 
 @user_router.post('/', status_code=201)
-async def create_user(user: UserRequestDTO, request: Request):
+async def create_user(user: UserRequestDTO, user_service: UserService = Depends(get_user_service)):
     #meu deus que frescura, eu juro que nao foi IA q fez isso
     #o codigo esta tao porco quanto eu faria
-    user_service = _get_service(request)
 
     try:
         user_service.create_user(user)
@@ -28,8 +24,7 @@ async def create_user(user: UserRequestDTO, request: Request):
         return {"error":f"{e}"}
 
 @user_router.get('/all-users', status_code=200)
-async def get_users(request: Request):
-    user_service = _get_service(request)
+async def get_users(user_service: UserService = Depends(get_user_service)):
 
     try:
         return {"users": user_service.get_all_users()}
@@ -37,8 +32,7 @@ async def get_users(request: Request):
         return {"error":f"{e}"}
     
 @user_router.get('/{id}')
-def get_user(id: int, request: Request):
-    user_service = _get_service(request)
+def get_user(id: int, user_service: UserService = Depends(get_user_service)):
 
     try:
         user = user_service.get_user(id)
@@ -48,8 +42,7 @@ def get_user(id: int, request: Request):
         return {"error":f"{e}"}
 
 @user_router.put('/')
-def update_user(user_request: UserRequestDTO, request: Request):
-    user_service = _get_service(request)
+def update_user(user_request: UserRequestDTO, user_service: UserService = Depends(get_user_service)):
 
     try:
         user_service.update_user(user_request)
