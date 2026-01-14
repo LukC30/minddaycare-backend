@@ -1,6 +1,5 @@
 from fastapi import FastAPI
 from contextlib import asynccontextmanager
-from app.core.dependencies import get_container
 from .dependencies import db_instance
 
 @asynccontextmanager

@@ -8,5 +8,6 @@ class UserModel(BaseModel):
     email: str = Field("")
     senha: str = Field("")
     telefone: str = Field("")
-    created_at: Optional[str] = Field("")
+    created_at: datetime.datetime
+    is_active: int = Field(1)
 

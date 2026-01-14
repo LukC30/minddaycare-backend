@@ -11,7 +11,7 @@ class UserService():
         self.user_repo = user_repo
     
     def create_user(self, user: UserRequestDTO):
-        user_model = UserMapper.to_user_model(user)
+        user_model = UserMapper.to_model(user)
         try:
             self.user_repo.create(user_model)
         except Exception as e:
@@ -43,7 +43,7 @@ class UserService():
             logger.error("Error: %s", str(e))
         return user_dict
     
-    def get_user(self, user_request):
+    def get_user_by_email(self, user_request):
         user_dict = {}
         try:
             user_model = self.user_repo.get_by_email(user_request)
