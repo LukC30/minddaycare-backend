@@ -43,6 +43,17 @@ class UserService():
             logger.error("Error: %s", str(e))
         return user_dict
     
+    def get_user(self, user_request):
+        user_dict = {}
+        try:
+            user_model = self.user_repo.get_by_email(user_request)
+            print(user_model)
+            user_dict = UserMapper.to_user_response_schema(user_model)
+        
+        except Exception as e:
+            logger.error("Error: %s", str(e))
+        return user_dict
+    
     def update_user(self, user_updated: UserRequestDTO):
         try:
             user_updated = self.user_repo.update(user_updated)

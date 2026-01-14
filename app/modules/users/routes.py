@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Request
 from .schema import UserRequestDTO
 from .service import UserService
+
 user_router = APIRouter(
     prefix='/v1/user',
     tags=['Main data']

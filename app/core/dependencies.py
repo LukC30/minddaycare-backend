@@ -11,3 +11,14 @@ class DependencyContainer():
 #wrapper com tudo bonitinho
 def get_container() -> DependencyContainer:
     return DependencyContainer()
+
+def get_db() -> Database:
+    return Database()
+
+def get_user_repository() -> UserRepository:
+    db = get_db()
+    return UserRepository(db)
+
+def get_user_service() -> UserService:
+    user_repo = get_user_repository()
+    return UserService(user_repo)

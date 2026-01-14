@@ -28,7 +28,7 @@ class UserRepository(BaseUserRepository):
     
     def get_by_id(self, id):
         with self.db.read_cursor() as c:
-            sql = "SELECT * FROM tbl_users WHERE id = "+ str(id)
+            sql = "SELECT * FROM tbl_users WHERE id = %s", str(id)
             c.execute(sql)
             user = c.fetchone()
 
@@ -36,9 +36,8 @@ class UserRepository(BaseUserRepository):
         return user_model
     
     def get_by_email(self, user_request: UserRequestDTO):
-        sql = "SELECT * FROM tbl_users WHERE email = "+ user_request.email
         with self.db.read_cursor() as c:
-            sql = "SELECT * FROM tbl_users WHERE email = "+ user_request.email
+            sql = "SELECT * FROM tbl_users WHERE email = %s", user_request.email
             c.execute(sql)
             user = c.fetchone()
 
