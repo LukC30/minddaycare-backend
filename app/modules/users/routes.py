@@ -45,8 +45,8 @@ def get_user(id: int, user_service: UserService = Depends(get_user_service)):
 def update_user(user_request: UserRequestDTO, user_service: UserService = Depends(get_user_service)):
 
     try:
-        user_service.update_user(user_request)
-        return {"message":"success", "user" : {user_service}}
+        sla = user_service.update_user(user_request)
+        return {"message":"success", "user" : sla}
     except Exception as e:
         return {"error":f"{e}"}
 

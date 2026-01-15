@@ -82,3 +82,7 @@ class UserMapper():
     def to_response(users_response: List[UserResponseDTO]):
         users = [user.model_dump() for user in users_response]
         return users
+    
+    def to_update(user_request: UserRequestDTO) -> dict:
+        user = user_request.model_dump()
+        return user

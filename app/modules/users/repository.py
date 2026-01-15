@@ -60,12 +60,17 @@ class UserRepository(BaseUserRepository):
     
     def update(self, user_request: UserRequestDTO):
         with self.db.alter_cursor() as c:
-            sql = "UPDATE FROM tbl_users set(name, email, senha, telefone) WHERE email = '%s'", user_request.email
-            to_insert = UserMapper.to_insert(user_request)
-            c.execute(sql, to_insert)
-
-        user_response = UserMapper.to_user_response_schema(user_request)
-        return user_response
+            user_insert = user_request.model_dump()
+            sql = """
+                UPDATE tbl_users 
+                SET nome = %(nome)s, 
+                    senha = %(senha)s, 
+                    telefone = %(telefone)s 
+                WHERE email = %(email)s
+            """
+            c.execute(sql, user_insert)
+        user_return = user_request.model_dump()
+        return user_return
     
     def delete(self, user_request: UserRequestDTO):
         with self.db.alter_cursor() as c:

@@ -60,6 +60,7 @@ class UserService():
 
         except Exception as e:
             logger.error("Error: %s", str(e))
+            raise
         
         return user_updated
     
