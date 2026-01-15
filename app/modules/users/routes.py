@@ -50,3 +50,10 @@ def update_user(user_request: UserRequestDTO, user_service: UserService = Depend
     except Exception as e:
         return {"error":f"{e}"}
 
+@user_router.delete('/')
+def delete_user(user_request: UserRequestDTO, user_service: UserService = Depends(get_user_service)):
+    try:
+        user_service.delete(user_request)
+        return {"message": "sucess"}
+    except Exception as e:
+        return {"error":f"{e}"}

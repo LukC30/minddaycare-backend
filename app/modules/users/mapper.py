@@ -46,7 +46,7 @@ class UserMapper():
 
     @to_insert.register
     @staticmethod
-    def _(user_model: UserModel):
+    def _(user_model: UserModel) -> tuple:
         insert_data = (user_model.nome, user_model.email, user_model.senha, user_model.telefone)
         return insert_data
     

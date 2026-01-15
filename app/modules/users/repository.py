@@ -11,7 +11,11 @@ class UserRepository(BaseUserRepository):
         super().__init__(db)
 
     def create(self, user_model: UserModel):
+        if not user_model:
+            raise
+
         insert_data = UserMapper.to_insert(user_model)
+        print(insert_data)
         with self.db.alter_cursor() as c:
             sql = "INSERT INTO tbl_users (nome, email, senha, telefone) VALUES (%s, %s, %s, %s)"
             c.execute(sql, insert_data)
@@ -19,12 +23,14 @@ class UserRepository(BaseUserRepository):
     
     def get_all(self):
         users = []
-
         with self.db.read_cursor() as c:
-            sql = "SELECT * FROM tbl_users"
+            sql = "SELECT * FROM tbl_users WHERE is_active = 1"
             c.execute(sql)
             users_data = c.fetchall()
         
+        if not users_data:
+            raise
+
         print(users_data)
         users = UserMapper.to_user_model_list(users_data)
         print(users)
@@ -37,6 +43,9 @@ class UserRepository(BaseUserRepository):
             c.execute(sql, (id,))
             user = c.fetchone()
 
+        if not user:
+            raise
+        
         user_model = UserMapper.to_model(user)
         return user_model
     
@@ -50,14 +59,18 @@ class UserRepository(BaseUserRepository):
         return user_model
     
     def update(self, user_request: UserRequestDTO):
-        with self.db.read_cursor() as c:
+        with self.db.alter_cursor() as c:
             sql = "UPDATE FROM tbl_users set(name, email, senha, telefone) WHERE email = '%s'", user_request.email
             to_insert = UserMapper.to_insert(user_request)
             c.execute(sql, to_insert)
-        
+
         user_response = UserMapper.to_user_response_schema(user_request)
         return user_response
     
     def delete(self, user_request: UserRequestDTO):
+        with self.db.alter_cursor() as c:
+            sql = "UPDATE FROM tbl_users set(is_active) WHERE email= '%s'"
+            to_insert = UserMapper.to_insert(user_request)
+            c.execute(sql, to_insert)
         return 
 

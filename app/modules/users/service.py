@@ -11,9 +11,8 @@ class UserService():
         self.user_repo = user_repo
     
     def create_user(self, user: UserRequestDTO):
-        user_model = UserMapper.to_model(user)
         try:
-            self.user_repo.create(user_model)
+            self.user_repo.create(user)
         except Exception as e:
             logger.error("Error: %s", str(e))
             raise
@@ -63,3 +62,10 @@ class UserService():
             logger.error("Error: %s", str(e))
         
         return user_updated
+    
+    def delete(self, user_deleted: UserRequestDTO):
+        try:
+            self.user_repo.delete(user_deleted)
+        
+        except Exception as e:
+            logger.error("Error: %s", str(e))

@@ -12,7 +12,7 @@ class BaseUserRepository(ABC):
         pass
     
     @abstractmethod
-    def delete(self, id):
+    def delete(self, user_request: UserRequestDTO):
         pass
 
     @abstractmethod
