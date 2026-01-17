@@ -7,6 +7,3 @@ class ConfessionModel(BaseModel):
     descricao: str
     created_at: str
 
-    def to_insert(self):
-        insert_data = self.model_dump().values()
-        return insert_data
