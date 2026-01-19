@@ -45,8 +45,8 @@ def get_user(id: int, user_service: UserService = Depends(get_user_service)):
 def update_user(user_request: UserRequestDTO, user_service: UserService = Depends(get_user_service)):
 
     try:
-        sla = user_service.update_user(user_request)
-        return {"message":"success", "user" : sla}
+        user_updated = user_service.update_user(user_request)
+        return {"message":"success", "user" : user_updated}
     except Exception as e:
         return {"error":f"{e}"}
 
@@ -54,6 +54,6 @@ def update_user(user_request: UserRequestDTO, user_service: UserService = Depend
 def delete_user(user_request: UserRequestDTO, user_service: UserService = Depends(get_user_service)):
     try:
         user_service.delete(user_request)
-        return {"message": "sucess"}
+        return {"message": "success"}
     except Exception as e:
         return {"error":f"{e}"}

@@ -54,8 +54,9 @@ class UserService():
         return user_dict
     
     def update_user(self, user_updated: UserRequestDTO):
+        user_model = UserMapper.to_model(user_updated)
         try:
-            user_updated = self.user_repo.update(user_updated)
+            user_updated = self.user_repo.update(user_model)
             print(user_updated)
 
         except Exception as e:
@@ -65,8 +66,9 @@ class UserService():
         return user_updated
     
     def delete(self, user_deleted: UserRequestDTO):
+        user_model = UserMapper.to_model(user_deleted)
         try:
-            self.user_repo.delete(user_deleted)
+            self.user_repo.delete(user_model)
         
         except Exception as e:
             logger.error("Error: %s", str(e))

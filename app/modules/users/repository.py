@@ -49,7 +49,7 @@ class UserRepository(BaseUserRepository):
         user_model = UserMapper.to_model(user)
         return user_model
     
-    def get_by_email(self, user_request: UserRequestDTO):
+    def get_by_email(self, user_request: UserModel):
         with self.db.read_cursor() as c:
             sql = "SELECT * FROM tbl_users WHERE email = %s"
             c.execute(sql, (user_request.email,))
@@ -58,7 +58,7 @@ class UserRepository(BaseUserRepository):
         user_model = UserMapper.to_model(user)
         return user_model
     
-    def update(self, user_request: UserRequestDTO):
+    def update(self, user_request: UserModel):
         with self.db.alter_cursor() as c:
             user_insert = user_request.model_dump()
             sql = """
@@ -72,7 +72,7 @@ class UserRepository(BaseUserRepository):
         user_return = user_request.model_dump()
         return user_return
     
-    def delete(self, user_request: UserRequestDTO):
+    def delete(self, user_request: UserModel):
         with self.db.alter_cursor() as c:
             sql = "UPDATE FROM tbl_users set(is_active) WHERE email= '%s'"
             to_insert = UserMapper.to_insert(user_request)
