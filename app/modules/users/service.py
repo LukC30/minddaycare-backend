@@ -11,58 +11,43 @@ class UserService():
         self.user_repo = user_repo
     
     def create_user(self, user: UserRequestDTO):
-        try:
-            self.user_repo.create(user)
-        except Exception as e:
-            logger.error("Error: %s", str(e))
-            raise
-        return
+        result = self.user_repo.create(user)
+        return result
     
     def get_all_users(self):
-        users_dict = []
-        try:
-            users_model = self.user_repo.get_all()
-            print(users_model)
-            users_dict = UserMapper.to_user_response_schema_list(users_model)
-        
-        except Exception as e:
-            logger.error("Error: %s", str(e))
-            raise
-             
-        return users_dict
+        users_model = self.user_repo.get_all()
+        print(users_model)
+        users_list = UserMapper.to_user_response_schema_list(users_model)
+
+        if not users_list:
+            logger.error("Hot get users")
+            
+        return users_list
     
     def get_user(self, id):
         user_dict = {}
-        try:
-            user_model = self.user_repo.get_by_id(id)
-            print(user_model)
-            user_dict = UserMapper.to_user_response_schema(user_model)
+    
+        user_model = self.user_repo.get_by_id(id)
+        if not user_model:
+            return None
         
-        except Exception as e:
-            logger.error("Error: %s", str(e))
+        user_dict = UserMapper.to_user_response_schema(user_model)
         return user_dict
     
     def get_user_by_email(self, user_request):
         user_dict = {}
-        try:
-            user_model = self.user_repo.get_by_email(user_request)
-            print(user_model)
-            user_dict = UserMapper.to_user_response_schema(user_model)
+        user_model = self.user_repo.get_by_email(user_request)
         
-        except Exception as e:
-            logger.error("Error: %s", str(e))
+        if not user_model:
+            return None
+        
+        user_dict = UserMapper.to_user_response_schema(user_model)
         return user_dict
     
     def update_user(self, user_updated: UserRequestDTO):
         user_model = UserMapper.to_model(user_updated)
-        try:
-            user_updated = self.user_repo.update(user_model)
-            print(user_updated)
+        user_updated = self.user_repo.update(user_model)
 
-        except Exception as e:
-            logger.error("Error: %s", str(e))
-            raise
-        
         return user_updated
     
     def delete(self, user_deleted: UserRequestDTO):

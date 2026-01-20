@@ -3,6 +3,7 @@ from .schema import UserRequestDTO
 from .model import UserModel
 from .mapper import UserMapper
 import logging
+from typing import Union
 logger = logging.getLogger(__name__)
 
 
@@ -12,14 +13,16 @@ class UserRepository(BaseUserRepository):
 
     def create(self, user_model: UserModel):
         if not user_model:
-            raise
+            return None
 
         insert_data = UserMapper.to_insert(user_model)
         print(insert_data)
         with self.db.alter_cursor() as c:
             sql = "INSERT INTO tbl_users (nome, email, senha, telefone) VALUES (%s, %s, %s, %s)"
             c.execute(sql, insert_data)
-        return 
+            return user_model
+        
+        return None
     
     def get_all(self):
         users = []
@@ -29,11 +32,9 @@ class UserRepository(BaseUserRepository):
             users_data = c.fetchall()
         
         if not users_data:
-            raise
+            return []
 
-        print(users_data)
         users = UserMapper.to_user_model_list(users_data)
-        print(users)
         return users
     
     def get_by_id(self, id):
@@ -42,9 +43,6 @@ class UserRepository(BaseUserRepository):
             logger.info(sql)
             c.execute(sql, (id,))
             user = c.fetchone()
-
-        if not user:
-            raise
         
         user_model = UserMapper.to_model(user)
         return user_model
@@ -58,7 +56,7 @@ class UserRepository(BaseUserRepository):
         user_model = UserMapper.to_model(user)
         return user_model
     
-    def update(self, user_request: UserModel):
+    def update(self, user_request: UserModel) -> Union[dict, None]:
         with self.db.alter_cursor() as c:
             user_insert = user_request.model_dump()
             sql = """
@@ -74,7 +72,7 @@ class UserRepository(BaseUserRepository):
     
     def delete(self, user_request: UserModel):
         with self.db.alter_cursor() as c:
-            sql = "UPDATE FROM tbl_users set(is_active) WHERE email= '%s'"
+            sql = "UPDATE FROM tbl_users set(is_active=0) WHERE email= '%s'"
             to_insert = UserMapper.to_insert(user_request)
             c.execute(sql, to_insert)
         return 
