@@ -2,7 +2,7 @@ from app.core.database.db import Database
 from .interfaces import BaseUserRepository
 from .schema import UserRequestDTO
 from .mapper import UserMapper
-import logging 
+import logging
 
 logger = logging.getLogger(__name__)
 
@@ -47,13 +47,11 @@ class UserService():
     def update_user(self, user_updated: UserRequestDTO):
         user_model = UserMapper.to_model(user_updated)
         user_updated = self.user_repo.update(user_model)
-
-        return user_updated
+        return True
     
     def delete(self, user_deleted: UserRequestDTO):
         user_model = UserMapper.to_model(user_deleted)
-        try:
-            self.user_repo.delete(user_model)
+        self.user_repo.delete(user_model)
+        return True
         
-        except Exception as e:
-            logger.error("Error: %s", str(e))
+        

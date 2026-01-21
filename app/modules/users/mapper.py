@@ -1,6 +1,6 @@
 from .schema import *
 from .model import *
-from typing import List, Tuple, override
+from typing import List
 from functools import singledispatchmethod
 
 class UserMapper():

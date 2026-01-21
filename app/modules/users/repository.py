@@ -44,6 +44,9 @@ class UserRepository(BaseUserRepository):
             c.execute(sql, (id,))
             user = c.fetchone()
         
+        if not user:
+            return None
+
         user_model = UserMapper.to_model(user)
         return user_model
     
@@ -53,6 +56,8 @@ class UserRepository(BaseUserRepository):
             c.execute(sql, (user_request.email,))
             user = c.fetchone()
 
+        if not user:
+            return None
         user_model = UserMapper.to_model(user)
         return user_model
     
@@ -67,13 +72,16 @@ class UserRepository(BaseUserRepository):
                 WHERE email = %(email)s
             """
             c.execute(sql, user_insert)
-        user_return = user_request.model_dump()
-        return user_return
+            return user_request.model_dump()
+        
+        return None
+        
     
     def delete(self, user_request: UserModel):
         with self.db.alter_cursor() as c:
             sql = "UPDATE FROM tbl_users set(is_active=0) WHERE email= '%s'"
             to_insert = UserMapper.to_insert(user_request)
             c.execute(sql, to_insert)
-        return 
+
+        return True
 
