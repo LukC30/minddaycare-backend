@@ -9,5 +9,5 @@ class UserModel(BaseModel):
     senha: str = Field("")
     telefone: str = Field("")
     created_at: datetime.datetime
-    is_active: int = Field(1)
+    is_active: str = Field("1")
 

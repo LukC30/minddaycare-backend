@@ -1,28 +1,35 @@
 from sqlite3 import DatabaseError
 from contextlib import contextmanager
+from ..config import get_database_env
 import logging
 import mysql.connector
+import os
 
 logger = logging.getLogger("[DATABASE]")
 
 class Database():
     def __init__(self):
-        self.db = self.connection()
+        self.envs = get_database_env()
+        self.db = None
     
-    def connection(self):
+    def connection(self, params: dict):
         try:
-            db = mysql.connector.connect(
-                user="root",
-                password="",
-                port=3306,
-                host="localhost",
+            self.db = mysql.connector.connect(
+                user=params.get('DATABASE_USER'),
+                password=params.get('DATABASE_SECRET'),
+                port=int(params.get('DATABASE_PORT')),
+                host=params.get('DATABASE_HOST'),
                 database="DB_MINDDAYCARE"
             )
             
             logger.info("Database is initialized")
-            return db
         except DatabaseError as e:
             logger.error(f"Connection error {e}")
+
+    def disconnect(self):
+        if self.db:
+            self.db.close()
+            logger.info("Database connection closed")
 
     @contextmanager
     def alter_cursor(self):

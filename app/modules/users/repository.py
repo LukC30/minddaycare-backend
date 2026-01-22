@@ -1,5 +1,4 @@
 from .interfaces import BaseUserRepository
-from .schema import UserRequestDTO
 from .model import UserModel
 from .mapper import UserMapper
 import logging
@@ -27,10 +26,10 @@ class UserRepository(BaseUserRepository):
     def get_all(self):
         users = []
         with self.db.read_cursor() as c:
-            sql = "SELECT * FROM tbl_users WHERE is_active = 1"
+            sql = "SELECT * FROM tbl_users WHERE is_active = '1'"
             c.execute(sql)
             users_data = c.fetchall()
-        
+
         if not users_data:
             return []
 
@@ -39,7 +38,7 @@ class UserRepository(BaseUserRepository):
     
     def get_by_id(self, id):
         with self.db.read_cursor() as c:
-            sql = "SELECT * FROM tbl_users WHERE id = %s"
+            sql = "SELECT * FROM tbl_users WHERE id = %s AND is_active='1'"
             logger.info(sql)
             c.execute(sql, (id,))
             user = c.fetchone()
@@ -50,9 +49,9 @@ class UserRepository(BaseUserRepository):
         user_model = UserMapper.to_model(user)
         return user_model
     
-    def get_by_email(self, user_request: UserModel):
+    def get_by_email(self, user_request: UserModel) -> Union[UserModel, None]:
         with self.db.read_cursor() as c:
-            sql = "SELECT * FROM tbl_users WHERE email = %s"
+            sql = "SELECT * FROM tbl_users WHERE email = %s AND is_active = '1',"
             c.execute(sql, (user_request.email,))
             user = c.fetchone()
 
@@ -69,7 +68,8 @@ class UserRepository(BaseUserRepository):
                 SET nome = %(nome)s, 
                     senha = %(senha)s, 
                     telefone = %(telefone)s 
-                WHERE email = %(email)s
+                WHERE email = %(email)s 
+                AND is_active=1
             """
             c.execute(sql, user_insert)
             return user_request.model_dump()
@@ -79,7 +79,7 @@ class UserRepository(BaseUserRepository):
     
     def delete(self, user_request: UserModel):
         with self.db.alter_cursor() as c:
-            sql = "UPDATE FROM tbl_users set(is_active=0) WHERE email= '%s'"
+            sql = "UPDATE FROM tbl_users SET is_active=0 WHERE email = '%s'"
             to_insert = UserMapper.to_insert(user_request)
             c.execute(sql, to_insert)
 

@@ -2,6 +2,7 @@ from app.core.database.db import Database
 from .interfaces import BaseUserRepository
 from .schema import UserRequestDTO
 from .mapper import UserMapper
+from ..auth.security import password_encript
 import logging
 
 logger = logging.getLogger(__name__)
@@ -11,12 +12,12 @@ class UserService():
         self.user_repo = user_repo
     
     def create_user(self, user: UserRequestDTO):
+        user.senha = password_encript(user.senha)
         result = self.user_repo.create(user)
         return result
     
     def get_all_users(self):
         users_model = self.user_repo.get_all()
-        print(users_model)
         users_list = UserMapper.to_user_response_schema_list(users_model)
 
         if not users_list:

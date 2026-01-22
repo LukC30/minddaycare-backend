@@ -5,9 +5,10 @@ CREATE TABLE IF NOT EXISTS tbl_users(
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(200) NOT NULL,
     email VARCHAR(200) UNIQUE NOT NULL,
-    senha VARCHAR(255) NOT NULL,
+    senha TEXT NOT NULL,
     telefone CHAR(11) UNIQUE,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    is_active ENUM('0',"1") DEFAULT '1'
 );
 
 -- Tabela de Desabafos
