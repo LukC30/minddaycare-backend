@@ -1,4 +1,4 @@
-from .security import verify_password, password_encript, _generate_jwt
+from .security import verify_password, _generate_token, verify_token
 from ..users.schema import UserRequestDTO
 from ..users.repository import UserRepository
 import os
@@ -16,8 +16,16 @@ class AuthService():
             return None
         
         user_data = user_request.model_dump()
-        token = _generate_jwt(user_data, self.auth_key)
+        token = _generate_token(user_data, self.auth_key)
         return token
     
+    def verify_user(token: str):
+        payload = verify_token(token)
+
+        if payload is None:
+            return None
+        
+        return payload
     
+
     

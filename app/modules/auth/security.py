@@ -14,7 +14,13 @@ def password_encript(password: str):
 def verify_password(hash: str, password: str):
     return pwd_context.verify(hash=hash, secret=password)
 
-def _generate_jwt(user_data: dict, auth_key: str):
+def verify_token(token: str, auth_key: str):
+    payload = jwt.decode(token, auth_key, ENCRIPT_ALGORITHM)
+    if not payload:
+        return None
+    return payload
+
+def _generate_token(user_data: dict, auth_key: str):
     payload = {
         "sub": f"{user_data.get("email")}",
         "exp": datetime.now() + timedelta(hours=1),
