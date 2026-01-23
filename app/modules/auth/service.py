@@ -7,6 +7,7 @@ class AuthService():
     def __init__(self, user_repo: UserRepository):
         self.auth_key = os.getenv("AUTHENTICATION_KEY")
         self.user_repo = user_repo
+        pass
         
     def authorize_user(self, user_request: UserRequestDTO):
         user_model = self.user_repo.get_by_email(user_request.email)
