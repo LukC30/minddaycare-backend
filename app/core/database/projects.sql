@@ -24,4 +24,16 @@ CREATE TABLE IF NOT EXISTS tbl_desabafo(
         ON DELETE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS tbl_refresh_token(
+    id int AUTO_INCREMENT PRIMARY KEY,
+    id_user int NOTNULL NULL,
+    date_activation TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_user_token
+        FOREIGN (id_user) REFERENCES tbl_user(id)
+        ON DELETE CASCADE
+);
+
+
+
 SELECT * FROM tbl_users;

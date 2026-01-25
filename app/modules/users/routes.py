@@ -33,7 +33,7 @@ def get_users(response: Response, user_service: UserService = Depends(get_user_s
 
     
 @user_router.get('/{id}')
-def get_user(id: int, response: Response,user_service: UserService = Depends(get_user_service)):
+def get_user(id: int, response: Response, user_service: UserService = Depends(get_user_service)):
     user = user_service.get_user(id)
     if not user:
         response.status_code = HTTP_404_NOT_FOUND

@@ -7,5 +7,6 @@ class BaseConfessionRepository(ABC):
         super().__init__()
         self.db = db
 
+    @abstractmethod
     def create(self, confession_request: ConfessionModel):
         pass

@@ -18,6 +18,11 @@ def verify_token(token: str, auth_key: str):
     payload = jwt.decode(token, auth_key, ENCRIPT_ALGORITHM)
     if not payload:
         return None
+    
+    exp_date = payload.get("exp")
+    if datetime.now() >= exp_date:
+        return None
+    
     return payload
 
 def _generate_token(user_data: dict, auth_key: str):
