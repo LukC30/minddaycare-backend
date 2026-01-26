@@ -37,4 +37,3 @@ def login(user_data: UserRequestDTO, auth_service: AuthService = Depends(get_aut
         )
     
     return tokens
-    

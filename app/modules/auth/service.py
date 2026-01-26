@@ -30,15 +30,7 @@ class AuthService():
     
     def verify_user(token: str):
         payload = verify_token(token)
-
+        if payload:
+            return payload
         
-
-        if payload is None:
-            return None
         
-        return payload
-    
-
-    
-
-    

@@ -9,3 +9,4 @@ class BaseAuthRepository(ABC):
     @abstractmethod
     def create(self, token):
         pass
+
