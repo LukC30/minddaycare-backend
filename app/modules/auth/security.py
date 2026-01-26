@@ -25,10 +25,10 @@ def verify_token(token: str, auth_key: str):
     
     return payload
 
-def _generate_token(user_data: dict, auth_key: str):
+def _generate_token(user_data: dict, auth_key: str, hours: int):
     payload = {
         "sub": f"{user_data.get("email")}",
-        "exp": datetime.now() + timedelta(hours=1),
+        "exp": datetime.now() + timedelta(hours=hours),
         "iat": datetime.now()
     }
     token = jwt.encode(payload, auth_key, ENCRIPT_ALGORITHM)

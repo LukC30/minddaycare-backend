@@ -8,7 +8,7 @@ from app.core.dependencies import get_auth_service
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl='token')
 
-router = APIRouter(
+auth_router = APIRouter(
     prefix='/v1/auth',
     tags=['auth', 'login', '']
 )
@@ -26,7 +26,15 @@ def get_current_user(token: str = Depends(oauth2_scheme), auth_service: AuthServ
     return user_data
 
 
-@router.post('/login')
-def login(user_data: UserRequestDTO):
+@auth_router.post('/login')
+def login(user_data: UserRequestDTO, auth_service: AuthService = Depends(get_auth_service)):
+    tokens = auth_service.authorize_user(user_data)
+    if not tokens:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Token inválido ou expirado",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
     
+    return tokens
     

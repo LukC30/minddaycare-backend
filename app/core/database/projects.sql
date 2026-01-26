@@ -25,12 +25,14 @@ CREATE TABLE IF NOT EXISTS tbl_desabafo(
 );
 
 CREATE TABLE IF NOT EXISTS tbl_refresh_token(
-    id int AUTO_INCREMENT PRIMARY KEY,
-    id_user int NOTNULL NULL,
-    date_activation TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_user INT NOT NULL,
+    token_hash TEXT NOT NULL, 
+    expires_at DATETIME NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT fk_user_token
-        FOREIGN (id_user) REFERENCES tbl_user(id)
+        FOREIGN KEY (id_user) REFERENCES tbl_users(id)
         ON DELETE CASCADE
 );
 

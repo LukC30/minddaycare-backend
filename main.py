@@ -2,6 +2,7 @@
 from app.core.lifespan import lifespan
 from app.core.config import setup_logging
 from app.modules.users.routes import user_router
+from app.modules.auth.routes import router
 
 #external imports
 from fastapi import FastAPI
