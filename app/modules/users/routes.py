@@ -39,6 +39,14 @@ def get_user(id: int, response: Response, user_service: UserService = Depends(ge
         response.status_code = HTTP_404_NOT_FOUND
     
     return {"user": user}
+    
+@user_router.get('/{email}')
+def get_user(email: str, response: Response, user_service: UserService = Depends(get_user_service)):
+    user = user_service.get_user_by_email(email)
+    if not user:
+        response.status_code = HTTP_404_NOT_FOUND
+    
+    return {"user": user}
 
 
 @user_router.put('/')

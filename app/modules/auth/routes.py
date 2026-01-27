@@ -1,5 +1,5 @@
+from app.modules.auth.schemas import AuthRequest
 from app.modules.auth.service import AuthService
-from ..users.schema import UserRequestDTO
 
 from fastapi import Depends, HTTPException, APIRouter
 from fastapi.security import OAuth2PasswordBearer
@@ -10,7 +10,7 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl='token')
 
 auth_router = APIRouter(
     prefix='/v1/auth',
-    tags=['auth', 'login', '']
+    tags=['auth']
 )
 
 # Isso aqui vai virar o middleware de autenticação
@@ -27,7 +27,7 @@ def get_current_user(token: str = Depends(oauth2_scheme), auth_service: AuthServ
 
 
 @auth_router.post('/login')
-def login(user_data: UserRequestDTO, auth_service: AuthService = Depends(get_auth_service)):
+def login(user_data: AuthRequest, auth_service: AuthService = Depends(get_auth_service)):
     tokens = auth_service.authorize_user(user_data)
     if not tokens:
         raise HTTPException(

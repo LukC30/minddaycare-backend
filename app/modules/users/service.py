@@ -35,9 +35,9 @@ class UserService():
         user_dict = UserMapper.to_user_response_schema(user_model)
         return user_dict
     
-    def get_user_by_email(self, user_request):
+    def get_user_by_email(self, email):
         user_dict = {}
-        user_model = self.user_repo.get_by_email(user_request)
+        user_model = self.user_repo.get_by_email(email)
         
         if not user_model:
             return None

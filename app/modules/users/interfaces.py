@@ -24,7 +24,7 @@ class BaseUserRepository(ABC):
         pass
 
     @abstractmethod
-    def get_by_email(self, user_request: UserRequestDTO):
+    def get_by_email(self, email: str):
         pass
 
     @abstractmethod

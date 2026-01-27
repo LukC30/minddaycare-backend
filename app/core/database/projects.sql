@@ -28,8 +28,8 @@ CREATE TABLE IF NOT EXISTS tbl_refresh_token(
     id INT AUTO_INCREMENT PRIMARY KEY,
     id_user INT NOT NULL,
     token_hash TEXT NOT NULL, 
-    expires_at DATETIME NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    expires_at DATETIME NOT NULL,
 
     CONSTRAINT fk_user_token
         FOREIGN KEY (id_user) REFERENCES tbl_users(id)

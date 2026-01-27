@@ -18,6 +18,7 @@ app = FastAPI(
 )
 
 app.include_router(user_router)
+app.include_router(auth_router)
 
 @app.get('/')
 def test_route():

@@ -49,10 +49,10 @@ class UserRepository(BaseUserRepository):
         user_model = UserMapper.to_model(user)
         return user_model
     
-    def get_by_email(self, user_request: UserModel) -> Union[UserModel, None]:
+    def get_by_email(self, email) -> Union[UserModel, None]:
         with self.db.read_cursor() as c:
-            sql = "SELECT * FROM tbl_users WHERE email = %s AND is_active = '1',"
-            c.execute(sql, (user_request.email,))
+            sql = "SELECT * FROM tbl_users WHERE email = %s AND is_active = '1'"
+            c.execute(sql, (email,))
             user = c.fetchone()
 
         if not user:

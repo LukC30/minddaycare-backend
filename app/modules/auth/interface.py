@@ -1,4 +1,6 @@
 from abc import ABC, abstractmethod
+
+from .model import AuthModel
 from app.core.database.db import Database
 
 
@@ -7,6 +9,9 @@ class BaseAuthRepository(ABC):
         self.db = db
 
     @abstractmethod
-    def create(self, token):
+    def create(self, auth_model: AuthModel):
         pass
 
+    
+    def select_by_date(self, date, id_user):
+        pass

@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 import jwt
 
 
-ENCRIPT_ALGORITHM = "RS256"
+ENCRIPT_ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 15
 
 pwd_context = CryptContext(schemes=['sha256_crypt'], deprecated="auto")
@@ -25,10 +25,10 @@ def verify_token(token: str, auth_key: str):
     
     return payload
 
-def _generate_token(user_data: dict, auth_key: str, hours: int):
+def _generate_token(user_data: dict, auth_key: str, days):
     payload = {
         "sub": f"{user_data.get("email")}",
-        "exp": datetime.now() + timedelta(hours=hours),
+        "exp": datetime.now() + timedelta(days=days),
         "iat": datetime.now()
     }
     token = jwt.encode(payload, auth_key, ENCRIPT_ALGORITHM)
