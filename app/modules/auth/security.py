@@ -19,17 +19,14 @@ def verify_token(token: str, auth_key: str):
     if not payload:
         return None
     
-    exp_date = payload.get("exp")
-    if datetime.now() >= exp_date:
-        return None
-    
     return payload
 
-def _generate_token(user_data: dict, auth_key: str, days):
+def _generate_token(user_data: dict, auth_key: str, time=15):
     payload = {
         "sub": f"{user_data.get("email")}",
-        "exp": datetime.now() + timedelta(days=days),
-        "iat": datetime.now()
+        "exp": datetime.now() + timedelta(minutes=time),
+        "iat": datetime.now(),
+        "is_valid": True
     }
     token = jwt.encode(payload, auth_key, ENCRIPT_ALGORITHM)
     return token
