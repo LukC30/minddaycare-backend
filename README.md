@@ -18,16 +18,9 @@ Este é o backend para o projeto Mind Daycare, desenvolvido com FastAPI.
 
 ## 📚 API Endpoints
 
-A seguir estão os endpoints disponíveis na API.
+Vou esperar tudo estar implementadinho pra documentar rsrsrs
+Mas caso rodem esse projeto localmente, utilizem a rota `/docs` Para acessar todos os endpoints
 
-| Método | Rota                  | Descrição                               |
-|--------|-----------------------|-------------------------------------------|
-| GET    | `/v1/user/test`       | Rota de teste para verificar se a API está no ar. |
-| POST   | `/v1/user/`           | Cria um novo usuário.                     |
-| GET    | `/v1/user/all-users`  | Retorna uma lista com todos os usuários.  |
-| GET    | `/v1/user/{id}`       | Busca e retorna um usuário pelo seu `id`.   |
-| PUT    | `/v1/user/`           | Atualiza as informações de um usuário.    |
-| DELETE | `/v1/user/`           | Deleta um usuário.                        |
 
 ## ⚙️ Tecnologias
 
