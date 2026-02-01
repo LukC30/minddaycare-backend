@@ -1,6 +1,6 @@
 # Mind Daycare - Backend
 
-Este é o backend para o projeto Mind Daycare, desenvolvido com FastAPI.
+Este é o backend para o projeto Mind Daycare, para relatorios diarios sobre saude psicologica, é desenvolvido com FastAPI.
 
 ## 🚀 Como Executar
 
