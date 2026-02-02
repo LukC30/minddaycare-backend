@@ -1,4 +1,6 @@
+from typing import Union
 from app.core.database.db import Database
+from app.modules.users.model import UserModel
 from app.modules.users.schema import UserRequestDTO
 from abc import ABC, abstractmethod
 
@@ -24,7 +26,7 @@ class BaseUserRepository(ABC):
         pass
 
     @abstractmethod
-    def get_by_email(self, email: str):
+    def get_by_email(self, email: str) -> Union[UserModel, None]:
         pass
 
     @abstractmethod

@@ -2,7 +2,6 @@ from passlib.context import CryptContext
 from datetime import datetime, timedelta
 import jwt
 
-
 ENCRIPT_ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 15
 

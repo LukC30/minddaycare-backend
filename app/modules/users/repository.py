@@ -23,7 +23,7 @@ class UserRepository(BaseUserRepository):
         
         return None
     
-    def get_all(self):
+    def get_all(self) -> list[UserModel]:
         users = []
         with self.db.read_cursor() as c:
             sql = "SELECT * FROM tbl_users WHERE is_active = '1'"
@@ -36,7 +36,7 @@ class UserRepository(BaseUserRepository):
         users = UserMapper.to_user_model_list(users_data)
         return users
     
-    def get_by_id(self, id):
+    def get_by_id(self, id) -> UserModel:
         with self.db.read_cursor() as c:
             sql = "SELECT * FROM tbl_users WHERE id = %s AND is_active='1'"
             logger.info(sql)

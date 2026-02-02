@@ -1,5 +1,7 @@
 from fastapi import APIRouter, Request, Depends, Response
 from starlette.status import HTTP_404_NOT_FOUND
+
+from app.modules.auth.routes import get_current_user
 from app.core.dependencies import get_user_service
 from .schema import UserRequestDTO
 from .service import UserService
@@ -10,6 +12,11 @@ user_router = APIRouter(
 )
 
 @user_router.get('/test', status_code=200)
+def test_route():
+    return {"Message":"Success"}
+
+
+@user_router.post('/test', status_code=200)
 def test_route():
     return {"Message":"Success"}
 

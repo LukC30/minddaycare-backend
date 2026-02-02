@@ -14,3 +14,7 @@ class ConfessionMapper():
     def _(confession_model: ConfessionModel) -> tuple:
         data = (confession_model.id_user, confession_model.humor, confession_model.descricao)
         return data
+    
+    @staticmethod
+    def to_confession_model(id_user: int, confession_request: ConfessionResponseDTO):
+        return ConfessionModel(id_user=id_user, humor=confession_request.humor, descricao=confession_request.descricao)
