@@ -10,3 +10,11 @@ class BaseConfessionRepository(ABC):
     @abstractmethod
     def create(self, confession_request: ConfessionModel):
         pass
+
+    @abstractmethod
+    def select_by_date(self):
+        pass
+
+    @abstractmethod
+    def select_last_thirty_days(self):
+        pass

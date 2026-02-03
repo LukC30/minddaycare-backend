@@ -16,4 +16,11 @@ class ConfessionRepository(BaseConfessionRepository):
             return confession_create
     
         return None
+    
+    def select_by_date(self, date):
+        
+        return
+    
+    def select_last_thirty_days(self):
+        return super().select_last_thirty_days()
         
