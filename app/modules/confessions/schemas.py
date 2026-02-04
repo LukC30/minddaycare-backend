@@ -4,7 +4,7 @@ from ..users.schema import UserResponseDTO
 import datetime
 
 class ConfessionRequestDTO(BaseModel):
-    email: int
+    email: str
     humor: Literal['calmaria',"tristeza","felicidade","alegria","ansiedade","irritação","desânimo","mudança de humor"," autocritica","apatia","confusão"]
     descricao: str
     date: datetime.date

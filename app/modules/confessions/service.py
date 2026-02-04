@@ -24,7 +24,9 @@ class ConfessionService():
             return None
         
         return confession
-        
+    
+    def select_by_month(self, date):
+        pass
         
 
 

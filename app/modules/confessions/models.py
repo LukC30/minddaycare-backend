@@ -8,4 +8,3 @@ class ConfessionModel(BaseModel):
     humor: str
     descricao: str
     created_at: Optional[datetime]
-
