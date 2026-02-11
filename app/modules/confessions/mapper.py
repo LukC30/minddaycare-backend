@@ -34,3 +34,7 @@ class ConfessionMapper():
     def to_confession_model_list(confessions_data):
         confessions_models = [ConfessionMapper.to_confession_model(confession) for confession in confessions_data]
         return confessions_models
+    
+    @staticmethod
+    def to_response(confession_model, user_response):
+        confession_response = ConfessionResponseDTO()

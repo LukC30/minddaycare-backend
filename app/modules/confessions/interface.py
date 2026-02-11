@@ -12,9 +12,9 @@ class BaseConfessionRepository(ABC):
         pass
 
     @abstractmethod
-    def select_by_date(self):
+    def select_by_date(self, id_user, date):
         pass
 
     @abstractmethod
-    def select_last_thirty_days(self):
+    def select_last_thirty_days(self, id_user):
         pass
