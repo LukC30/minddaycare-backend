@@ -36,5 +36,6 @@ class ConfessionMapper():
         return confessions_models
     
     @staticmethod
-    def to_response(confession_model, user_response):
-        confession_response = ConfessionResponseDTO()
+    def to_response(confession_model: ConfessionModel, user_response):
+        confession_response = ConfessionResponseDTO(user=user_response, humor=confession_model.humor, descricao=confession_model.descricao, date=confession_model.created_at)
+        return confession_response

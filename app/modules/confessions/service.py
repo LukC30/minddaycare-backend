@@ -38,7 +38,7 @@ class ConfessionService():
 
         confessions_list = ConfessionMapper.to_confession_model_list(confessions)
         confessions_response = [ConfessionMapper.to_response(confession, user_response) for confession in confessions_list]
-
+        return confessions_response
         
 
 
