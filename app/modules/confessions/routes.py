@@ -1,8 +1,8 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
 from .schemas import ConfessionRequestDTO
 from app.modules.auth.routes import get_current_user
 from app.core.dependencies import get_confession_service
-
+from app.modules.auth.routes import get_current_user
 
 confession_router = APIRouter(
     prefix='/v1/router',
