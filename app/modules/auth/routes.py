@@ -46,3 +46,7 @@ def refresh_token(token_request: RefreshTokenRequest,
                   user = Depends(get_current_user)):
     token = auth_service.refresh_token(token_request, user_data)
     return token
+
+@auth_router.get('/test')
+def test_token(user=Depends(get_current_user)):
+    return {"Message":"Success", "email":user.sub}

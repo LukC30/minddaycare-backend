@@ -25,14 +25,14 @@ class AuthService():
 
         refresh_token = self.auth_repo.select_by_date(datetime.now(), user_model.id)
         if not refresh_token:
-            refresh_token = self.generate_token(user_data, is_refresh=True)
+            refresh_token = self.generate_token(user_data, is_access=True)
             auth_user = AuthModel(id_user=user_model.id, token=refresh_token)
             created = self.auth_repo.create(auth_user)
 
             if not created:
                 raise Exception
 
-        token = self.generate_token(user_data, is_refresh=False)
+        token = self.generate_token(user_data, is_access=False)
 
         tokens = {
             "token" : token,
@@ -63,11 +63,12 @@ class AuthService():
 
     def verify_user(self, token: str):
         payload = verify_token(token, self._auth_key)
+        print(payload)
         if payload is None:
             return None
 
-        exp_date = payload.get("exp_date")
-        if datetime.now() >= exp_date:
+        exp_date = payload.get("exp")
+        if datetime.timestamp(datetime.now()) >= exp_date:
             payload['is_valid'] = False
             return payload
     

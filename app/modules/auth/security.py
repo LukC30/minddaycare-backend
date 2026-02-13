@@ -24,8 +24,8 @@ def _generate_token(user_data: dict, auth_key: str, time=15):
     payload = {
         "id": f"{user_data.get("id")}",
         "sub": f"{user_data.get("email")}",
-        "exp": datetime.now() + timedelta(minutes=time),
-        "iat": datetime.now(),
+        "exp": datetime.timestamp(datetime.now() + timedelta(minutes=time)),
+        "iat": datetime.timestamp(datetime.now()),
         "is_valid": True
     }
     token = jwt.encode(payload, auth_key, ENCRIPT_ALGORITHM)
