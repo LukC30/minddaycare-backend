@@ -12,6 +12,6 @@ class BaseAuthRepository(ABC):
     def create(self, auth_model: AuthModel):
         pass
 
-    
+    @abstractmethod
     def select_by_date(self, date, id_user):
         pass

@@ -22,6 +22,7 @@ def verify_token(token: str, auth_key: str):
 
 def _generate_token(user_data: dict, auth_key: str, time=15):
     payload = {
+        "id": f"{user_data.get("id")}",
         "sub": f"{user_data.get("email")}",
         "exp": datetime.now() + timedelta(minutes=time),
         "iat": datetime.now(),

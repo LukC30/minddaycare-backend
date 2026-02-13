@@ -79,9 +79,8 @@ class UserRepository(BaseUserRepository):
     
     def delete(self, user_request: UserModel):
         with self.db.alter_cursor() as c:
-            sql = "UPDATE FROM tbl_users SET is_active=0 WHERE email = '%s'"
-            to_insert = UserMapper.to_insert(user_request)
-            c.execute(sql, to_insert)
+            sql = "UPDATE tbl_users SET is_active=0 WHERE email = '%s'"
+            c.execute(sql, user_request.email)
 
         return True
 

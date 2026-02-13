@@ -1,6 +1,9 @@
+from functools import singledispatchmethod
+
+from ..users.schema import UserResponseDTO
+
 from .schemas import ConfessionRequestDTO, ConfessionResponseDTO
 from .models import ConfessionModel
-from functools import singledispatchmethod
 
 class ConfessionMapper():
 

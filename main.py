@@ -3,7 +3,7 @@ from app.core.lifespan import lifespan
 from app.core.config import setup_logging
 from app.modules.users.routes import user_router
 from app.modules.auth.routes import auth_router
-
+from app.modules.confessions.routes import confession_router
 #external imports
 from fastapi import FastAPI
 import logging
@@ -19,6 +19,7 @@ app = FastAPI(
 
 app.include_router(user_router)
 app.include_router(auth_router)
+app.include_router(confession_router)
 
 @app.get('/')
 def test_route():

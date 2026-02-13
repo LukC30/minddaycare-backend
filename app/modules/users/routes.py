@@ -16,10 +16,6 @@ def test_route():
     return {"Message":"Success"}
 
 
-@user_router.post('/test', status_code=200)
-def test_route():
-    return {"Message":"Success"}
-
 @user_router.post('/', status_code=201)
 def create_user(user: UserRequestDTO, user_service: UserService = Depends(get_user_service)):
     #meu deus que frescura, eu juro que nao foi IA q fez isso

@@ -21,7 +21,7 @@ class AuthService():
         if not is_user:
             return None
         
-        user_data = auth_request.model_dump()
+        user_data = user_model.model_dump()
 
         refresh_token = self.auth_repo.select_by_date(datetime.now(), user_model.id)
         if not refresh_token:
@@ -51,7 +51,7 @@ class AuthService():
         
         refresh_token = self.verify_user(refresh_token_request.refresh_token)
         if refresh_token is None or not refresh_token.get('is_valid'):
-            return None
+            return None #TODO (criar metodo para verificação de refresh token aqui dentro, mas não vou fazer agora pq eh um saco)
 
         return self.generate_token(user_data)
 
