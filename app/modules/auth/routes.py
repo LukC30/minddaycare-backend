@@ -16,7 +16,7 @@ auth_router = APIRouter(
 # Isso aqui vai virar o middleware de autenticação
 
 def get_current_user(token: str = Depends(oauth2_scheme), auth_service: AuthService = Depends(get_auth_service)):
-    user_data = auth_service.verify_user(token)    
+    user_data = auth_service.verify_user(token) 
     if not user_data or not user_data.get("is_valid"):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
